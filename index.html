@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>アロマ・ハーブ・天然石サポート診断</title>
+  <script type="text/javascript" src="https://ff.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=hbOFYUQo3VBMc1xw9p21nnHQKH0XuWLEEHtILodsyILTSAOBe62azI4-28YuN6E_zXGwOHbXrm7ITkY-LWO-EZ2QUvQekytfFJtYnJWMu0feVGlta8PQDI85w1xMvRQFMRlqaM3RWrRakqZj0c0_ekXMuGgeAKWUD4qC536vraoDnKqyEdWdKRuUZLJruuLbJBPZUo_6cb-XDaNLdfydJgwiK3ekSO0MGcFMKy2rdoM3F2OcZMc1uKy47ofJBuRineHbaeLnUdd4OG6Jt-cBZw" charset="UTF-8"></script><style>
+    :root {
+      --bg: #fcfaf7;
+      --card: #ffffff;
+      --line: #e7e0d8;
+      --text: #2e2a26;
+      --muted: #6f665f;
+      --accent: #8a6f5a;
+      --accent-soft: #f2ebe3;
+      --warn: #8b4a4a;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+      line-height: 1.7;
+    }
+    .wrap {
+      width: min(860px, calc(100% - 32px));
+      margin: 32px auto 64px;
+    }
+    .hero, .card, .result-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.04);
+    }
+    .hero {
+      padding: 28px 24px;
+      margin-bottom: 20px;
+    }
+    h1 {
+      font-size: clamp(1.5rem, 2vw, 2rem);
+      line-height: 1.3;
+      margin: 0 0 10px;
+    }
+    .sub {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.98rem;
+    }
+    .card {
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+    .section-title {
+      margin: 0 0 14px;
+      font-size: 1.05rem;
+    }
+    label {
+      display: block;
+      font-size: 0.88rem;
+      margin-bottom: 5px;
+      color: var(--muted);
+    }
+    input {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      background: #fff;
+      font-size: 15px;
+      color: var(--text);
+    }
+    input:focus {
+      outline: 2px solid rgba(138,111,90,.18);
+      border-color: var(--accent);
+    }
+    .actions {
+      margin-top: 14px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    button {
+      appearance: none;
+      border: none;
+      border-radius: 12px;
+      padding: 10px 16px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform .05s ease, opacity .2s ease;
+    }
+    button:active { transform: translateY(1px); }
+    .primary {
+      background: var(--accent);
+      color: white;
+    }
+    .secondary {
+      background: var(--accent-soft);
+      color: var(--text);
+    }
+    .error {
+      margin-top: 10px;
+      color: var(--warn);
+      font-size: 0.95rem;
+      min-height: 1.5em;
+    }
+    .result-card {
+      padding: 24px;
+      display: none;
+    }
+    .result-head {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+    .mini {
+      background: var(--accent-soft);
+      border-radius: 16px;
+      padding: 14px 16px;
+    }
+    .mini .k {
+      display: block;
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 3px;
+    }
+    .mini .v {
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+    .block {
+      padding: 18px 0;
+      border-top: 1px solid var(--line);
+    }
+    .block:first-of-type {
+      border-top: none;
+      padding-top: 0;
+    }
+    .block h3 {
+      margin: 0 0 6px;
+      font-size: 1rem;
+    }
+    .hint {
+      margin: 0 0 10px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+    .theme-name {
+      font-weight: 700;
+      font-size: 1.02rem;
+      margin-bottom: 4px;
+    }
+    .summary-box {
+      background: var(--accent-soft);
+      border-radius: 16px;
+      padding: 14px 16px;
+      font-weight: 600;
+    }
+    ul {
+      margin: 8px 0 0;
+      padding-left: 20px;
+    }
+    .footer-actions {
+      margin-top: 20px;
+    }
+    @media (max-width: 700px) {
+      .result-head { grid-template-columns: 1fr; }
+      .wrap {
+        width: min(100% - 20px, 860px);
+        margin-top: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <h1>生年月日で見る アロマ・ハーブ・天然石サポート診断</h1>
+      <p class="sub">本質と対象年の流れから、提案しやすい素材候補を表示します。通常は今年が自動で入りますが、必要なら来年など別の年でも見られます。</p>
+    </section>
+
+    <section class="card">
+      <h2 class="section-title">生年月日を入力してください</h2>
+      <div>
+        <label for="birthDate">生年月日</label>
+        <input type="date" id="birthDate" />
+      </div>
+      <div style="margin-top:12px; max-width:200px;">
+        <label for="targetYearInput">対象年</label>
+        <input type="number" id="targetYearInput" />
+      </div>
+      <div class="actions">
+        <button class="primary" id="diagnoseBtn">診断する</button>
+      </div>
+      <div class="error" id="errorMessage"></div>
+    </section>
+
+    <section class="result-card" id="resultArea">
+      <h2 class="section-title">診断結果</h2>
+
+      <div class="result-head">
+        <div class="mini">
+          <span class="k">対象年</span>
+          <span class="v" id="targetYear"></span>
+        </div>
+        <div class="mini">
+          <span class="k">ライフパス</span>
+          <span class="v" id="lifePath"></span>
+        </div>
+        <div class="mini">
+          <span class="k">今年の流れ</span>
+          <span class="v" id="personalYear"></span>
+        </div>
+      </div>
+
+      <div class="block">
+        <h3>本質テーマ</h3>
+        <div class="theme-name" id="lifeTheme"></div>
+        <p class="hint">本質の読み</p>
+        <p id="lifeSummary"></p>
+      </div>
+
+      <div class="block">
+        <h3>今年テーマ</h3>
+        <div class="theme-name" id="yearTheme"></div>
+        <p class="hint">今年の読み</p>
+        <p id="yearSummary"></p>
+      </div>
+
+      <div class="block">
+        <h3>今回の提案方向</h3>
+        <div class="summary-box" id="directionSummary"></div>
+      </div>
+
+      <div class="block">
+        <h3>おすすめアロマ</h3>
+        <p class="hint">香りで整えたい時の候補です。</p>
+        <ul id="aromaList"></ul>
+      </div>
+
+      <div class="block">
+        <h3>おすすめハーブ</h3>
+        <p class="hint">植物で支えたい時の候補です。</p>
+        <ul id="herbList"></ul>
+      </div>
+
+      <div class="block">
+        <h3>おすすめ天然石</h3>
+        <p class="hint">お守りのように寄り添う補助候補です。</p>
+        <ul id="stoneList"></ul>
+      </div>
+
+      <div class="block">
+        <h3>おすすめの取り入れ方</h3>
+        <p class="hint">今の流れに合わせて使いやすい方法です。</p>
+        <ul id="usageList"></ul>
+      </div>
+
+      <div class="block">
+        <h3>読み取りポイント</h3>
+        <ul id="readingPointsList"></ul>
+      </div>
+
+      <div class="block">
+        <h3>使用時の注意</h3>
+        <ul id="cautionsList"></ul>
+      </div>
+
+      <div class="footer-actions actions">
+        <button class="secondary" id="retryBtn">もう一度診断する</button>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const NUMBER_THEMES = {
+      1: { theme: "始まり・行動・突破", summary: "動き出す力が強く、最初の一歩を作るタイプです。止まるより、まず動く方が流れに乗りやすいです。", mainTag: "動かす" },
+      2: { theme: "調和・受容・人間関係", summary: "人との間をやわらかく整える力が強いタイプです。安心感や心地よさを大切にすると流れが安定しやすいです。", mainTag: "整える" },
+      3: { theme: "表現・喜び・創造", summary: "表現や明るさの要素が強いタイプです。楽しさや軽やかさを外へ出すと流れが良くなりやすいです。", mainTag: "表現" },
+      4: { theme: "安定・土台・現実化", summary: "物事を整え、積み上げていく力が強いタイプです。派手に広げるより、着実に形にする方が得意です。", mainTag: "安定" },
+      5: { theme: "変化・巡り・自由", summary: "流れを動かしたり、切り替えたりする力が強いタイプです。同じ状態を続けるより、変化の中で持ち味が出やすいです。", mainTag: "動かす" },
+      6: { theme: "愛・保護・やさしさ", summary: "やさしさや安心感を育てる力が強いタイプです。人を支えるぶん、自分をいたわる視点も大切になります。", mainTag: "やさしさ" },
+      7: { theme: "内省・浄化・静けさ", summary: "内側を整える力が強いタイプです。外へ広げるより、静けさや浄化を優先すると力を発揮しやすいです。", mainTag: "浄化" },
+      8: { theme: "豊かさ・力・現実化", summary: "現実を動かし、形にする力が強いタイプです。結果や成果につながる提案と相性がよいです。", mainTag: "現実化" },
+      9: { theme: "手放し・慈愛・完了", summary: "終わらせる力や整理する力が強いタイプです。役目を終えたものをやさしく手放す流れと相性がよいです。", mainTag: "手放す" }
+    };
+
+    const NUMBER_SUPPORTS = {
+      1: { aromas: ["レモン", "ペパーミント", "ローズマリー"], herbs: ["ジンジャー", "ペパーミント", "ローズマリー"], stones: ["カーネリアン", "サンストーン", "シトリン"], usages: ["朝スプレー", "行動前ミスト", "活力系チンキ"] },
+      2: { aromas: ["ラベンダー", "オレンジスイート", "ゼラニウム"], herbs: ["カモミール", "レモンバーム", "ローズ"], stones: ["ローズクォーツ", "ムーンストーン", "グリーンアベンチュリン"], usages: ["夜スプレー", "安心系ミスト", "やわらぎチンキ"] },
+      3: { aromas: ["オレンジスイート", "ベルガモット", "レモン"], herbs: ["ローズ", "ハイビスカス", "エルダーフラワー"], stones: ["シトリン", "サンストーン", "アクアマリン"], usages: ["気分アップスプレー", "華やか系ミスト", "表現サポートチンキ"] },
+      4: { aromas: ["シダーウッド", "フランキンセンス", "ティーツリー"], herbs: ["ネトル", "ジンジャー"], stones: ["スモーキークォーツ", "ガーネット", "ブラックトルマリン"], usages: ["空間浄化スプレー", "グラウンディングミスト", "土台づくりチンキ"] },
+      5: { aromas: ["ペパーミント", "レモン", "ユーカリ"], herbs: ["ペパーミント", "フェンネル", "ジンジャー"], stones: ["ラブラドライト", "アマゾナイト", "アクアマリン"], usages: ["リフレッシュスプレー", "切替ミスト", "巡り系チンキ"] },
+      6: { aromas: ["ラベンダー", "オレンジスイート", "ゼラニウム"], herbs: ["カモミール", "ローズ", "レモンバーム"], stones: ["ローズクォーツ", "グリーンアベンチュリン", "ムーンストーン"], usages: ["ハート系スプレー", "セルフケアミスト", "やさしさチンキ"] },
+      7: { aromas: ["フランキンセンス", "ラベンダー", "サンダルウッド"], herbs: ["レモンバーム", "パッションフラワー", "マグワート"], stones: ["アメジスト", "ラブラドライト", "ムーンストーン"], usages: ["瞑想スプレー", "夜の空間ミスト", "内観チンキ"] },
+      8: { aromas: ["ローズマリー", "ベルガモット", "ジンジャー"], herbs: ["ジンジャー", "ネトル", "ローズマリー"], stones: ["シトリン", "タイガーアイ", "ガーネット"], usages: ["仕事前スプレー", "集中ミスト", "行動サポートチンキ"] },
+      9: { aromas: ["ラベンダー", "フランキンセンス", "サンダルウッド"], herbs: ["カモミール", "パッションフラワー", "マグワート"], stones: ["アメジスト", "クリアクォーツ", "ラブラドライト"], usages: ["手放しスプレー", "感情整理ミスト", "浄化チンキ"] }
+    };
+
+    const SUMMARY_RULES = {
+      same: "【tag】を中心に、同じ方向を深める提案が向きます。",
+      add: "【life】を土台に、【year】を足す提案が向きます。",
+      strengthen: "【life】を活かしながら、【year】を強める提案が向きます。",
+      firstThen: "まず【life】を整え、そのうえで【year】を足す提案が向きます。"
+    };
+
+    const SUMMARY_WORDS = {
+      "整える": "整える力",
+      "動かす": "動かす力",
+      "やさしさ": "やさしさ",
+      "浄化": "浄化",
+      "手放す": "手放し",
+      "現実化": "現実化",
+      "表現": "表現",
+      "安定": "安定"
+    };
+
+    const CAUTION_RULES = {
+      base: [
+        "精油は希釈前提",
+        "ハーブは服薬確認",
+        "天然石はお守り的サポートとして扱う"
+      ],
+      citrusAromas: ["レモン", "ベルガモット", "オレンジスイート"],
+      mintAromas: ["ペパーミント"],
+      pregnancyCautionHerbs: ["パッションフラワー", "マグワート"],
+      extra: {
+        citrus: "柑橘系は肌用で注意",
+        mint: "ペパーミントは乳幼児注意",
+        pregnancy: "妊娠中は要確認"
+      }
+    };
+
+    const READING_POINT_TEMPLATES = {
+      1: "本質は動き出す力が強いタイプです。",
+      2: "本質は整える力と安心感を作る力が強いタイプです。",
+      3: "本質は明るさや表現の力が強いタイプです。",
+      4: "本質は整える力が強いタイプです。",
+      5: "本質は動きと切り替えの力が強いタイプです。",
+      6: "本質はやさしさと安心感を育てる力が強いタイプです。",
+      7: "本質は静けさと浄化の力が強いタイプです。",
+      8: "本質は現実を動かし形にする力が強いタイプです。",
+      9: "本質は整理や手放しの力が強いタイプです。"
+    };
+
+    const YEAR_POINT_TEMPLATES = {
+      1: "今年は始まりや行動を強める提案が向きます。",
+      2: "今年は安心感や関係性を整える提案が向きます。",
+      3: "今年は明るさと表現を足す提案が向きます。",
+      4: "今年は土台と安定を強める提案が向きます。",
+      5: "今年は切り替えや巡りを意識する提案が向きます。",
+      6: "今年はやさしさや愛を深める提案が向きます。",
+      7: "今年は静けさや浄化を優先する提案が向きます。",
+      8: "今年は現実化や結果につなげる提案が向きます。",
+      9: "今年は整理や手放しを優先する提案が向きます。"
+    };
+
+    function reduceToSingleDigit(n) {
+      while (n > 9) {
+        n = String(n).split("").reduce((sum, d) => sum + Number(d), 0);
+      }
+      return n;
+    }
+
+    function calcLifePath(year, month, day) {
+      const digits = `${year}${String(month).padStart(2, "0")}${String(day).padStart(2, "0")}`;
+      const total = digits.split("").reduce((sum, d) => sum + Number(d), 0);
+      return reduceToSingleDigit(total);
+    }
+
+    function calcPersonalYear(month, day, targetYear = new Date().getFullYear()) {
+      const yearSum = reduceToSingleDigit(
+        String(targetYear).split("").reduce((sum, d) => sum + Number(d), 0)
+      );
+      return reduceToSingleDigit(Number(month) + Number(day) + yearSum);
+    }
+
+    function pickSupports(lifeNum, yearNum, key) {
+      const lifeList = NUMBER_SUPPORTS[lifeNum][key] || [];
+      const yearList = NUMBER_SUPPORTS[yearNum][key] || [];
+      const lifeFirst = lifeList.slice(0, 2);
+      const yearFirst = yearList.slice(0, 2);
+      return [...new Set([...lifeFirst, ...yearFirst])].slice(0, 3);
+    }
+
+    function buildSummary(lifeTag, yearTag) {
+      const lifeWord = SUMMARY_WORDS[lifeTag] || lifeTag;
+      const yearWord = SUMMARY_WORDS[yearTag] || yearTag;
+
+      if (lifeTag === yearTag) {
+        return SUMMARY_RULES.same.replace("【tag】", lifeWord);
+      }
+
+      if ((lifeTag === "安定" || lifeTag === "やさしさ" || lifeTag === "浄化") &&
+          (yearTag === "表現" || yearTag === "現実化" || yearTag === "動かす")) {
+        return SUMMARY_RULES.firstThen.replace("【life】", lifeWord).replace("【year】", yearWord);
+      }
+
+      return SUMMARY_RULES.add.replace("【life】", lifeWord).replace("【year】", yearWord);
+    }
+
+    function buildCautions(finalAromas, finalHerbs) {
+      const cautions = new Set(CAUTION_RULES.base);
+      if (finalAromas.some(a => CAUTION_RULES.citrusAromas.includes(a))) {
+        cautions.add(CAUTION_RULES.extra.citrus);
+      }
+      if (finalAromas.some(a => CAUTION_RULES.mintAromas.includes(a))) {
+        cautions.add(CAUTION_RULES.extra.mint);
+      }
+      if (finalHerbs.some(h => CAUTION_RULES.pregnancyCautionHerbs.includes(h))) {
+        cautions.add(CAUTION_RULES.extra.pregnancy);
+      }
+      return [...cautions].slice(0, 4);
+    }
+
+    function diagnoseSupport(year, month, day, targetYear = new Date().getFullYear()) {
+      const lifePath = calcLifePath(year, month, day);
+      const personalYear = calcPersonalYear(month, day, targetYear);
+
+      const lifeData = NUMBER_THEMES[lifePath];
+      const yearData = NUMBER_THEMES[personalYear];
+
+      const finalAromas = pickSupports(lifePath, personalYear, "aromas");
+      const finalHerbs = pickSupports(lifePath, personalYear, "herbs");
+      const finalStones = pickSupports(lifePath, personalYear, "stones");
+      const finalUsages = pickSupports(lifePath, personalYear, "usages");
+
+      return {
+        targetYear,
+        lifePath,
+        personalYear,
+        lifeTheme: lifeData.theme,
+        yearTheme: yearData.theme,
+        lifeSummary: lifeData.summary,
+        yearSummary: yearData.summary,
+        directionSummary: buildSummary(lifeData.mainTag, yearData.mainTag),
+        finalAromas,
+        finalHerbs,
+        finalStones,
+        finalUsages,
+        readingPoints: [
+          READING_POINT_TEMPLATES[lifePath],
+          YEAR_POINT_TEMPLATES[personalYear]
+        ],
+        cautions: buildCautions(finalAromas, finalHerbs)
+      };
+    }
+
+    function renderList(elementId, items) {
+      const ul = document.getElementById(elementId);
+      ul.innerHTML = "";
+      items.forEach(item => {
+        const li = document.createElement("li");
+        li.textContent = item;
+        ul.appendChild(li);
+      });
+    }
+
+    function renderResult(result) {
+      document.getElementById("targetYear").textContent = result.targetYear;
+      document.getElementById("lifePath").textContent = result.lifePath;
+      document.getElementById("personalYear").textContent = result.personalYear;
+      document.getElementById("lifeTheme").textContent = result.lifeTheme;
+      document.getElementById("yearTheme").textContent = result.yearTheme;
+      document.getElementById("lifeSummary").textContent = result.lifeSummary;
+      document.getElementById("yearSummary").textContent = result.yearSummary;
+      document.getElementById("directionSummary").textContent = result.directionSummary;
+
+      renderList("aromaList", result.finalAromas);
+      renderList("herbList", result.finalHerbs);
+      renderList("stoneList", result.finalStones);
+      renderList("usageList", result.finalUsages);
+      renderList("readingPointsList", result.readingPoints);
+      renderList("cautionsList", result.cautions);
+
+      document.getElementById("resultArea").style.display = "block";
+    }
+
+    document.getElementById("targetYearInput").value = new Date().getFullYear();
+
+    document.getElementById("diagnoseBtn").addEventListener("click", () => {
+      const birthDateValue = document.getElementById("birthDate").value;
+      let year, month, day;
+
+      if (birthDateValue) {
+        const parts = birthDateValue.split("-");
+        year = Number(parts[0]);
+        month = Number(parts[1]);
+        day = Number(parts[2]);
+      }
+
+      const targetYear = Number(document.getElementById("targetYearInput").value) || new Date().getFullYear();
+      const errorEl = document.getElementById("errorMessage");
+      errorEl.textContent = "";
+
+      if (!birthDateValue || !year || !month || !day || month < 1 || month > 12 || day < 1 || day > 31) {
+        errorEl.textContent = "生年月日を正しく入力してください";
+        return;
+      }
+
+      const result = diagnoseSupport(year, month, day, targetYear);
+      renderResult(result);
+    });
+
+    document.getElementById("retryBtn").addEventListener("click", () => {
+      document.getElementById("birthDate").value = "";
+      document.getElementById("targetYearInput").value = new Date().getFullYear();
+      document.getElementById("errorMessage").textContent = "";
+      document.getElementById("resultArea").style.display = "none";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  </script>
+</body>
+</html>
